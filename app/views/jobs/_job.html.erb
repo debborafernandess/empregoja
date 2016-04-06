@@ -1,0 +1,9 @@
+<h1><%= job.title  %></h1>
+<hr />
+ [<%= job.company  %>]
+<small><strong><%= job.category %></strong></small>
+<p><%= job.description %></p>
+
+<small><%= job.location %></small>
+
+<%= link_to 'Ver mais', job_path(job)  %>

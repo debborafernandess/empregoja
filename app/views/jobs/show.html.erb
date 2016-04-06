@@ -1,0 +1,25 @@
+<h1>Emprego Já</h1>
+<h2><%= @job.title  %></h2>
+<hr />
+<table>
+  <tr>
+    <td>Empresa: </td>
+    <td><%= @job.company  %></td>
+  </tr>
+  <tr>
+    <td>Localização: </td>
+    <td><%= @job.location %></td>
+  </tr>
+  <tr>
+    <td>Categoria: </td>
+    <td><%= @job.category  %></td>
+  </tr>
+  <tr>
+    <td>Descerição Completa: </td>
+    <td><%= @job.description  %></td>
+  </tr>
+</table>
+
+<%= link_to 'Voltar', root_path %>
+
+
