@@ -24,4 +24,11 @@ feature 'User creates a new job' do
     expect(page).to have_content job.company
     expect(page).to have_content job.description
   end
+  
+  scenario 'fail' do
+    visit new_job_path
+    
+    click_on 'Criar Vaga'
+    expect(page).to have_content("Não pode ser vazio")
+  end
 end

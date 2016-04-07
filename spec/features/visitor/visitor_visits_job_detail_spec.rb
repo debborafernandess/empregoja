@@ -17,5 +17,6 @@ feature 'Visitor visits job details' do
     expect(page).to have_content job.company
     expect(page).to have_content job.description
     expect(page).to have_content job.location
+    expect(find_link("Voltar").visible?).to eq true
   end
 end
