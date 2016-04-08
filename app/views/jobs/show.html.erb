@@ -1,4 +1,7 @@
 <h2><%= @job.title %></h2>
+<% if @job.featured? %>
+  <h3>Vaga em Destaque</h3>
+<% end %>
 <hr>
 <p><strong>Empresa:</strong> <%= @job.category %></p>
 <p><strong>Empresa:</strong> <%= @job.company %></p>

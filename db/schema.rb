@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205180211) do
+ActiveRecord::Schema.define(version: 20160407233954) do
 
   create_table "jobs", force: :cascade do |t|
     t.string   "title"
     t.string   "category"
     t.string   "company"
-    t.string   "description"
+    t.text     "description"
     t.string   "location"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "featured"
   end
 
 end
