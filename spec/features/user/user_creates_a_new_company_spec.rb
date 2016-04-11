@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'User creates a new company' do
-
   scenario 'successfully' do
     company = Company.new(name:     'Campus Code',
                           location: 'São Paulo',
