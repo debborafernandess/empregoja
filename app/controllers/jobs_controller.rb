@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   def show
-    @job = Job.find(params[:id])
+    @job = Job.includes(:company).where(params[:id]).first
   end
 
   def new
@@ -16,6 +16,6 @@ class JobsController < ApplicationController
 
   def job_params
     params.require(:job)
-      .permit(:title, :location, :category, :company, :description, :featured)
+      .permit(:title, :location, :category, :company_id, :description, :featured)
   end
 end
