@@ -1,10 +1,17 @@
+<% if flash[:notice] %>
+  <ul>
+  <% @job.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>
 <%= form_for @job do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
   <%= f.label :location %>
   <%= f.text_field :location %>
-  <%= f.label :company_id %>
-  <%= f.collection_select :company_id, @companies, :id, :name %>
+  <%= f.label :company_id, 'Company' %>
+  <%= f.collection_select :company_id, @companies, :id, :name, include_blank: 'Selecione' %>
   <%= f.label :category %>
   <%= f.text_field :category %>
   <%= f.label :featured  %>

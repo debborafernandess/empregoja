@@ -1,60 +1,54 @@
 require 'rails_helper'
 
 feature 'User creates a new job' do
-  scenario 'successfully' do
-    company = Company.create(name: 'Campus Code',
+  before(:example) do
+    @mandatory = ['Title', 'Category', 'Description', 'Location']
+    @company = Company.create(name: 'Campus Code',
                             location: 'São Paulo',
                             mail: 'contato@campus.com.br',
                             phone: '2369-3476')
-
-    job = Job.new(title: 'Dev Master',
+    @job = Job.new(title: 'Dev Master',
                   location: 'Rio de Janeiro',
                   category: 'Desenvolvedor',
                   description: 'Vaga para Dev Master para Bootcamp Rails')
+  end
 
+  scenario 'successfully' do
     visit new_job_path
 
-    fill_in 'Title',       with: job.title
-    fill_in 'Location',    with: job.location
-    fill_in 'Category',    with: job.category
-    select company.name,   from: 'Company'
-    fill_in 'Description', with: job.description
+    @mandatory.each do |field|
+      fill_in field, with: @job.send(field.downcase)
+    end
+    select @company.name,   from: 'Company'
 
     click_on 'Criar Vaga'
 
-    expect(page).to have_content job.title
-    expect(page).to have_content job.location
-    expect(page).to have_content job.category
-    expect(page).to have_content company.name
-    expect(page).to have_content job.description
+    expect(page).to have_content @job.title
+    expect(page).to have_content @job.location
+    expect(page).to have_content @job.category
+    expect(page).to have_content @company.name
+    expect(page).to have_content @job.description
   end
 
   scenario 'featured job' do
-    company = Company.create(name: 'Campus Code',
-                            location: 'São Paulo',
-                            mail: 'contato@campus.com.br',
-                            phone: '2369-3476')
-
-    job = Job.new(title:    'Dev Master',
-                  location: 'Rio de Janeiro',
-                  category: 'Desenvolvedor',
-                  description: 'Vaga para Dev Master para o Bootcamp Rails')
     visit new_job_path
-    fill_in 'Title',       with: job.title
-    fill_in 'Location',    with: job.location
-    fill_in 'Category',    with: job.category
-    select company.name,   from: 'Company'
-    fill_in 'Description', with: job.description
+
+    @mandatory.each do |field|
+      fill_in field, with: @job.send(field.downcase)
+    end
+    select @company.name,   from: 'Company'
     check   'Featured'
 
     click_on 'Criar Vaga'
 
-    expect(page).to have_content job.title
-    expect(page).to have_content job.location
-    expect(page).to have_content job.category
-    expect(page).to have_content company.name
-    expect(page).to have_content job.description
-    expect(page).to have_content 'Vaga em Destaque'
+    # within('div.job') do
+      expect(page).to have_content @job.title
+      expect(page).to have_content @job.location
+      expect(page).to have_content @job.category
+      expect(page).to have_content @company.name
+      expect(page).to have_content @job.description
+      expect(page).to have_content 'Vaga em Destaque'
+    # end
   end
 
   scenario 'invalid data' do
@@ -62,7 +56,7 @@ feature 'User creates a new job' do
 
     click_on 'Criar Vaga'
 
-    ['Title', 'Category', 'Description', 'Location'].each do |field|
+    (@mandatory << 'Company').each do |field|
       expect(page).to have_content "#{field} can\'t be blank"
     end
   end
