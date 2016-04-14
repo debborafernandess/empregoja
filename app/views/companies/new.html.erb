@@ -1,3 +1,4 @@
+<%= "Warning! All fields are mandatory." if @company.errors %>
 <%= form_for @company do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
