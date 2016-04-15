@@ -22,4 +22,29 @@ feature 'Visitor view recent jobs' do
       expect(page).to have_content('Novidade')
     end
   end
+
+
+    scenario 'fail' do
+      company = Company.create(name:     'Campus Code',
+                               location: 'São Paulo',
+                               mail:     'contato@campuscode.com.br',
+                               phone:    '2369-3476')
+
+      category = Category.create(name: 'Desenvolvedor')
+
+      travel_to 6.days.ago do
+        Job.create(title: 'Vaga de Dev',
+                   description: 'Dev Junior Rails com ao menos um projeto',
+                   location: 'São Paulo',
+                   company: company,
+                   category: category)
+      end
+
+      visit root_path
+
+      # primeira elemento com o css "jobs" da pagina
+      within('.jobs:first-child') do
+        expect(page).not_to have_content('Novidade')
+      end
+    end
 end

@@ -1,7 +1,10 @@
 <section id="jobs">
   <% @jobs.each do |job| %>
     <div class="jobs">
-      <h3><%= job.title %></h1>
+      <% if job.recent? %>
+        <h2>Novidade</h2>
+      <% end %>
+      <h3><%= job.title %></h3>
       <p><%= job.location %></p>
       <p><%= job.company.name %></p>
       <p><%= job.category.name %></p>
@@ -19,4 +22,3 @@
     <%= link_to category.name, category %>
   <% end %>
 </aside>
-
