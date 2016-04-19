@@ -4,4 +4,5 @@ class HomeController < ApplicationController
     @companies = Company.all
     @categories = Category.all
   end
+
 end
